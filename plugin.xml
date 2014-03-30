@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+           id="org.jhurliman.cordova.inkfilepicker"
+      version="0.0.1">
+
+    <name>InkFilepicker</name>
+    <description>Plugin to the native InkFilepicker SDK</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,filepicker,ink,inkfilepicker,filepicker.io,file,upload</keywords>
+    <repo>https://github.com/jhurliman/cordova-inkfilepicker.git</repo>
+
+    <js-module src="www/filepicker.js" name="filepicker">
+        <clobbers target="filepicker" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="CDVFPPicker">
+                <param name="ios-package" value="CDVFPPicker"/>
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/CDVFPPicker.h" />
+        <source-file src="src/ios/CDVFPPicker.m" />
+
+        <framework src="src/ios/FPPicker.framework" />
+        <resource-file src="src/ios/FPPicker.bundle" />
+
+        <preference name="FILEPICKER_API_KEY" />
+    </platform>
+
+</plugin>

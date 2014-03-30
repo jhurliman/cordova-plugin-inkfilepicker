@@ -1,4 +1,3 @@
-cordova-plugin-inkfilepicker
-============================
+# org.jhurliman.cordova.inkfilepicker
 
-Plugin to the native Ink Filepicker SDK
+Plugin documentation: [doc/index.md](doc/index.md)
