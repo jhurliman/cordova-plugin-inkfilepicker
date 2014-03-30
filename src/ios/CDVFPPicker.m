@@ -1,5 +1,4 @@
 
-#import "CDVSystemLog.h"
 #import <FPPicker/FPPicker.h>
 
 @implementation CDVFPPicker

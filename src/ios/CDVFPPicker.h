@@ -1,5 +1,4 @@
 
-#import <asl.h>
 #import <Cordova/CDVPlugin.h>
 
 @interface CDVFPPicker : CDVPlugin

@@ -25,7 +25,7 @@
         <header-file src="src/ios/CDVFPPicker.h" />
         <source-file src="src/ios/CDVFPPicker.m" />
 
-        <framework src="src/ios/FPPicker.framework" />
+        <framework src="src/ios/FPPicker.framework" custom="true" />
         <resource-file src="src/ios/FPPicker.bundle" />
 
         <preference name="FILEPICKER_API_KEY" />
