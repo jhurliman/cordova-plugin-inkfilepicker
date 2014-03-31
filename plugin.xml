@@ -22,6 +22,10 @@
             </feature>
         </config-file>
 
+        <config-file target="*-Info.plist" parent="Filepicker API Key">
+            <string>$FILEPICKER_API_KEY</string>
+        </config-file>
+
         <header-file src="src/ios/CDVFPPicker.h" />
         <source-file src="src/ios/CDVFPPicker.m" />
 

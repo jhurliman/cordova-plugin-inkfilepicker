@@ -1,13 +1,12 @@
 
 #import <Cordova/CDVPlugin.h>
+#import <FPPicker/FPPicker.h>
 
-@interface CDVFPPicker : CDVPlugin
+@interface CDVFPPicker : CDVPlugin <FPPickerDelegate>
 {
 }
 
-NSString* callbackId;
-
-- (CDVSystemLog*)init;
+- (CDVFPPicker*)init;
 
 - (void)getFile:(CDVInvokedUrlCommand*)command;
 

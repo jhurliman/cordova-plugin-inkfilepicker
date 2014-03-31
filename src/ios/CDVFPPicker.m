@@ -1,7 +1,9 @@
 
-#import <FPPicker/FPPicker.h>
+#import "CDVFPPicker.h"
 
 @implementation CDVFPPicker
+
+NSString* callbackId;
 
 - (id)init
 {
@@ -18,11 +20,11 @@
     FPPickerController *fpController = [[FPPickerController alloc] init];
     fpController.fpdelegate = self;
 
-    self.callbackId = command.callbackId;
+    callbackId = command.callbackId;
     NSDictionary *options = [command.arguments objectAtIndex:0];
 
     if (options[@"allowsEditing"] != nil) {
-      fpController.allowsEditing = options[@"allowsEditing"];
+      fpController.allowsEditing = [options[@"allowsEditing"] boolValue];
     }
 
     if ([options[@"dataTypes"] isKindOfClass:[NSArray class]]) {
@@ -77,10 +79,25 @@
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self.viewController dismissViewControllerAnimated:YES completion:nil];
 
+    NSDictionary *dict = @{@"url": info[@"FPPickerControllerRemoteURL"],
+                           @"mediatype": info[@"FPPickerControllerMediaType"],
+                           @"localUrl": [(NSURL*)info[@"FPPickerControllerMediaURL"] absoluteString],
+                           @"filename": info[@"FPPickerControllerFilename"]};
+
     // Fire the JS callback
-    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:info];
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
     [pluginResult setKeepCallbackAsBool:YES];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
 }
+
+- (void)FPPickerControllerDidCancel:(FPPickerController *)picker
+{
+    [self.viewController dismissViewControllerAnimated:YES completion:nil];
+
+    // Fire the JS callback
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:@{ @"code": @101 }];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+};
 
 @end
